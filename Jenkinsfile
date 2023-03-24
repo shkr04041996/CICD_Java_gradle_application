@@ -19,7 +19,7 @@ pipeline{
                 }
             }
         }
-                stage('Identify misconfig using datree in the helm charts'){
+        stage('Identify misconfig using datree in the helm charts'){
 
             steps{
 
@@ -31,7 +31,6 @@ pipeline{
                     }
                 }
             }
-
         }
     }    
 }
