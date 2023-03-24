@@ -32,23 +32,25 @@ pipeline{
                  } 
              }
          }
-     }
-        stage("docker build & docker push"){
+        }
+        stage('pushing the helm chart to Nexus repo'){
+
             steps{
+
                 script{
-                    withCredentials([string(credentialsId: 'nexus_creds', variable: 'nexus_password')]) { 
+                    withCredentials([string(credentialsId: 'nexus_creds', variable: 'nexus_password')]) {
                         dir('kubernetes/') {
-                             sh '''
-                                 helmversion=$( helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ')
-                                 tar -czvf  myapp-${helmversion}.tgz myapp/
-                                 curl -u admin:$nexus_password http://3.85.123.58:8081/repository/helm-hosted/ --upload-file myapp-${helmversion}.tgz -v
-                                '''
-                            }    
-                          
+                          sh '''
+                           helmversion=$(helm show chart myapp | grep version | cut -d: -f 2 | tr -d ' ') 
+                           tar -czvf myapp-${helmversion}.tgz myapp/
+                           curl -u admin:$nexus_creds http://3.85.123.58:8081/repository/helm-repo/ --upload-file myapp-${helmversion}.tgz -v
+                           '''
                         }
                     }
                 }
             }
-        }               
+        }
+    }     
            
 }
+
