@@ -13,6 +13,7 @@ pipeline{
                                 docker login -u admin -p $nexus_password 3.85.123.58:8083 
                                 docker push  3.85.123.58:8083/springapp:${VERSION}
                                 docker rmi 3.85.123.58:8083/springapp:${VERSION}
+                                helm version
                             '''
                     }
                 }
