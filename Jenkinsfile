@@ -29,8 +29,9 @@ pipeline{
                       withEnv(['DATREE_TOKEN=0efa386a-825b-45a1-ab80-46a74870a6c3']) {
                         sh 'helm datree test .'
                     }
-                }
-            }
-        }
-    }    
+                 } 
+             }
+         }
+     }    
+  }
 }
